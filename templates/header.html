@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <div class="col-md-3 mb-2 mb-md-0">
+        <a href="{{ url_for('index') }}" class="d-inline-flex link-body-emphasis text-decoration-none">
+          <img src="/static/logo.jpg" class="bi" width="50" height="50" role="img" aria-label="Bootstrap"></img>
+        </a>
+      </div>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{{ url_for('index') }}" class="nav-link px-2 {% if request.endpoint == "index" %} link-secondary {% endif %}">Home</a></li>
+        <li><a href="#" class="nav-link px-2{% if request.endpoint == "groups" %} link-secondary {% endif %}">Groups</a></li>
+        <li><a href="#" class="nav-link px-2{% if request.endpoint == "chats" %} link-secondary {% endif %}">Chats</a></li>
+        <li><a href="#" class="nav-link px-2{% if request.endpoint == "faqs" %} link-secondary {% endif %}">FAQs</a></li>
+        <li><a href="#" class="nav-link px-2{% if request.endpoint == "about" %} link-secondary {% endif %}">About</a></li>
+      </ul>
+
+      <div class="col-md-3 text-end">
+        <a href="{{ url_for('login') }}" class="btn btn-outline-primary me-2">Login</a>
+        <a href="{{ url_for('signup') }}" class="btn btn-primary">Sign-up</a>
+      </div>
+    </header>
+  </div>
+{% endblock %}
