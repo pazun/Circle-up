@@ -18,8 +18,13 @@
       </ul>
 
       <div class="col-md-3 text-end">
+        {% if session.get ('user_id') %}
+        <a href="{{ url_for('account') }}" class="btn btn-outline-primary me-2">{{session.get('username')}}</a>
+        <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
+        {% else %}
         <a href="{{ url_for('login') }}" class="btn btn-outline-primary me-2">Login</a>
         <a href="{{ url_for('signup') }}" class="btn btn-primary">Sign-up</a>
+        {% endif %}
       </div>
     </header>
   </div>
