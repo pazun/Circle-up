@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% include 'header.html'%}
+{% include 'footer.html'%}
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Groups</h2>
+        {% if session.get('user_id') %}
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createGroupModal">
+            Create New Group
+        </button>
+        {% endif %}
+    </div>
+
+    <!-- Groups Grid -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for group in groups %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="/static/group_images/{{ group.image }}" class="card-img-top" alt="{{ group.name }}"
+                     style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ group.name }}</h5>
+                    <p class="card-text">{{ group.description }}</p>
+                    {% if session.get('user_id') %}
+                    <a href="#" class="btn btn-primary">Join Group</a>
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-primary">Login to Join</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Create Group Modal -->
+    {% if session.get('user_id') %}
+    <div class="modal fade" id="createGroupModal" tabindex="-1" aria-labelledby="createGroupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createGroupModalLabel">Create New Group</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data" action="{{ url_for('create_group') }}">
+                        {{ form.csrf_token }}
+                        <div class="mb-3">
+                            {{ form.name.label(class="form-label") }}
+                            {{ form.name(class="form-control", placeholder="Enter group name") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.description.label(class="form-label") }}
+                            {{ form.description(class="form-control", placeholder="Enter group description") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.image.label(class="form-label") }}
+                            {{ form.image(class="form-control") }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Group</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

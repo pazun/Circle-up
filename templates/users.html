@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% include 'header.html'%}
+{% include 'footer.html'%}
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-5">Find Other Users</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for user in users %}
+        {% if user.id != current_user.id %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <img src="/static/user_images/{{ user.image_profile }}" alt="{{ user.username }}'s avatar"
+                         class="rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover;">
+                    <h5 class="card-title">{{ user.username }}</h5>
+                    <p class="card-text text-muted">{{ user.location if user.location else 'No location set' }}</p>
+                    <a href="#" class="btn btn-primary">Open profine</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
