@@ -119,7 +119,6 @@ def account():
         return render_template('account.html', user=user)
     return redirect(url_for('login'))
 
-# Add upload folder configuration
 UPLOAD_FOLDER = 'static/user_images'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
