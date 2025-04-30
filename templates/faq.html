@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% include 'header.html'%}
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-5">Frequently Asked Questions</h1>
+    
+    <div class="accordion" id="faqAccordion">
+        <!-- Group Creation -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    How do I create a new group?
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    To create a new group:
+                    <ol>
+                        <li>Log in to your account</li>
+                        <li>Go to the Groups page</li>
+                        <li>Click the "Create New Group" button</li>
+                        <li>Fill in the group name and description</li>
+                        <li>Choose a group image or upload your own</li>
+                        <li>Click "Create Group" to finish</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Joining Groups -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    How do I join a group?
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    To join a group:
+                    <ol>
+                        <li>Navigate to the group's page</li>
+                        <li>Click the "Join Group" button</li>
+                        <li>Once joined, you can participate in discussions and create posts</li>
+                    </ol>
+                    Note: You must be logged in to join groups.
+                </div>
+            </div>
+        </div>
+
+        <!-- Posting -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    How do I create a post in a group?
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    To create a post:
+                    <ol>
+                        <li>Join the group if you haven't already</li>
+                        <li>Go to the group's page</li>
+                        <li>Find the "Create Post" form</li>
+                        <li>Enter your post title and content</li>
+                        <li>Optionally add an image</li>
+                        <li>Click "Create Post" to publish</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Management -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    How do I update my profile?
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    To update your profile:
+                    <ol>
+                        <li>Click on your username or profile picture</li>
+                        <li>Go to Account Settings</li>
+                        <li>Update your information (location, profile picture)</li>
+                        <li>Click "Save Changes" to update</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFive">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    What are the privacy settings?
+                </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Privacy information:
+                    <ul>
+                        <li>Your email address is never shared publicly</li>
+                        <li>Only your username and location are visible to other users</li>
+                        <li>Group posts are visible to all group members</li>
+                        <li>You can leave a group at any time</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'footer.html'%}
+{% endblock %}

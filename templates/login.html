@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% include 'header.html'%}
-{% include 'footer.html'%}
 {% block content %}
     <div class="container">
         <h1>Login</h1>
@@ -20,4 +19,5 @@
         <p class="text-danger">{{ error }}</p>
         {% endif %}
     </div>
+{% include 'footer.html'%}
 {% endblock %}

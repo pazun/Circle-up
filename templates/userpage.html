@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% include 'header.html'%}
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <!-- User Profile Card -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <img src="/static/user_images/{{ profile_user.image_profile }}" 
+                         alt="{{ profile_user.username }}'s avatar"
+                         class="rounded-circle mb-3" 
+                         style="width: 200px; height: 200px; object-fit: cover;">
+                    <h3 class="card-title">{{ profile_user.username }}</h3>
+                    <p class="text-muted">
+                        <i class="fas fa-map-marker-alt"></i>
+                        {{ profile_user.location if profile_user.location else 'No location set' }}
+                    </p>
+                    <p class="text-muted">Member since: {{ profile_user.date_created.strftime('%B %d, %Y') }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Activity -->
+        <div class="col-md-8">
+            <!-- Groups Section -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Groups</h4>
+                </div>
+                <div class="card-body">
+                    {% if profile_user.groups.all() %}
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                            {% for group in profile_user.groups.all() %}
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img src="/static/group_images/{{ group.image }}" 
+                                         class="card-img-top" 
+                                         alt="{{ group.name }}"
+                                         style="height: 100px; object-fit: cover;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ group.name }}</h5>
+                                        <a href="{{ url_for('group_page', group_id=group.id) }}" 
+                                           class="btn btn-sm btn-primary">View Group</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">Not a member of any groups yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Recent Posts Section -->
+            <div class="card">
+                <div class="card-header">
+                    <h4>Recent Posts</h4>
+                </div>
+                <div class="card-body">
+                    {% if profile_user.posts %}
+                        {% for post in profile_user.posts %}
+                        <div class="card mb-3">
+                            {% if post.image != 'default.jpg' %}
+                            <img src="/static/post_images/{{ post.image }}" 
+                                 class="card-img-top" 
+                                 alt="Post image"
+                                 style="height: 200px; object-fit: cover;">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <p class="card-text">{{ post.content }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">Posted in {{ post.group.name }}</small>
+                                    <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d %H:%M') }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">No posts yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html'%}
+{% endblock %}

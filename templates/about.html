@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% include 'header.html'%}
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h1 class="text-center mb-5">About Our Community Platform</h1>
+            
+            <!-- Introduction -->
+            <div class="mb-5">
+                <h2>Welcome to Our Community</h2>
+                <p class="lead">
+                    We're a platform dedicated to bringing people together through shared interests and passions.
+                    Whether you're into board games, books, music, or public transport, there's a place for you here.
+                </p>
+            </div>
+
+            <!-- Our Mission -->
+            <div class="mb-5">
+                <h2>Our Mission</h2>
+                <p>
+                    To create a welcoming space where people can:
+                </p>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item">Connect with like-minded individuals</li>
+                    <li class="list-group-item">Share their experiences and knowledge</li>
+                    <li class="list-group-item">Build lasting friendships</li>
+                    <li class="list-group-item">Discover new interests and hobbies</li>
+                </ul>
+            </div>
+
+            <!-- Features -->
+            <div class="mb-5">
+                <h2>What We Offer</h2>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Interest Groups</h5>
+                                <p class="card-text">Create or join groups based on your interests, from board games to public transport.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Community Posts</h5>
+                                <p class="card-text">Share your thoughts, experiences, and media with group members.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">User Profiles</h5>
+                                <p class="card-text">Customize your profile and connect with other members.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Easy Navigation</h5>
+                                <p class="card-text">Simple and intuitive interface to help you find what you're looking for.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Guidelines -->
+            <div class="mb-5">
+                <h2>Community Guidelines</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">✨ Be respectful to all members</li>
+                            <li class="mb-2">✨ Share constructive and relevant content</li>
+                            <li class="mb-2">✨ Help maintain a positive environment</li>
+                            <li class="mb-2">✨ Report inappropriate content</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="text-center">
+                <h2>Thank you</h2>
+                <p>We apreciate your usage of this site</p>
+                <a href="{{ url_for('faq') }}" class="btn btn-primary me-2">Visit FAQ</a>
+                <a href="{{ url_for('index') }}" class="btn btn-outline-primary">Homepage</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'footer.html'%}
+{% endblock %}

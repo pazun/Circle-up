@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% include 'header.html'%}
-{% include 'footer.html'%}
 {% block content %}
 <div class="container py-5">
     <!-- Group Header -->
@@ -17,7 +16,8 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <p class="text-muted mb-0">Created by: {{ group.admin.username }}</p>
-                    <p class="text-muted">Created on: {{ group.created_at.strftime('%Y-%m-%d') }}</p>
+                    <p class="text-muted mb-0">Members: {{ group.members|length }}</p>
+                    <p class="text-muted mb-0">Date Created: {{ group.date_created.strftime('%Y-%m-%d') }}</p>
                 </div>
                 {% if session.get('user_id') %}
                     {% if not is_member %}
@@ -25,7 +25,9 @@
                         <button type="submit" class="btn btn-primary">Join Group</button>
                     </form>
                     {% else %}
-                    <button class="btn btn-secondary" disabled>Already a Member</button>
+                    <form action="{{ url_for('leave_group', group_id=group.id) }}" method="post">
+                        <button type="submit" class="btn btn-danger">Leave Group</button>
+                    </form>
                     {% endif %}
                 {% else %}
                     <a href="{{ url_for('login') }}" class="btn btn-primary">Login to Join</a>
@@ -84,4 +86,5 @@
         </div>
     </div>
 </div>
+{% include 'footer.html'%}
 {% endblock %}

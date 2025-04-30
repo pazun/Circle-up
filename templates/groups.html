@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% include 'header.html'%}
-{% include 'footer.html'%}
 {% block content %}
 <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -55,7 +54,12 @@
                         </div>
                         <div class="mb-3">
                             {{ form.image.label(class="form-label") }}
-                            {{ form.image(class="form-control") }}
+                            {{ form.image(class="form-select") }}
+                        </div>
+                        <div class="mb-3">
+                            <p class="text-muted">- or -</p>
+                            {{ form.custom_image.label(class="form-label") }}
+                            {{ form.custom_image(class="form-control") }}
                         </div>
                         <button type="submit" class="btn btn-primary">Create Group</button>
                     </form>
@@ -65,4 +69,5 @@
     </div>
     {% endif %}
 </div>
+{% include 'footer.html'%}
 {% endblock %}

@@ -13,8 +13,8 @@
         <li><a href="{{ url_for('index') }}" class="nav-link px-2 {% if request.endpoint == "index" %} link-secondary {% endif %}">Home</a></li>
         <li><a href="{{ url_for('groups') }}" class="nav-link px-2{% if request.endpoint == "groups" %} link-secondary {% endif %}">Groups</a></li>
         <li><a href="{{ url_for('users') }}" class="nav-link px-2{% if request.endpoint == "users" %} link-secondary {% endif %}">Users</a></li>
-        <li><a href="#" class="nav-link px-2{% if request.endpoint == "faqs" %} link-secondary {% endif %}">FAQs</a></li>
-        <li><a href="#" class="nav-link px-2{% if request.endpoint == "about" %} link-secondary {% endif %}">About</a></li>
+        <li><a href="{{ url_for('faq') }}" class="nav-link px-2{% if request.endpoint == "faq" %} link-secondary {% endif %}">FAQs</a></li>
+        <li><a href="{{ url_for('about') }}" class="nav-link px-2{% if request.endpoint == "about" %} link-secondary {% endif %}">About</a></li>
       </ul>
 
       <div class="col-md-3 text-end">
@@ -27,5 +27,17 @@
         {% endif %}
       </div>
     </header>
-  </div>
+    
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+</div>
 {% endblock %}
