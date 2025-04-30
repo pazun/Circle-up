@@ -19,7 +19,7 @@ class Group(db.Model):
     description = db.Column(db.Text)
     admin_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     image = db.Column(db.String(20), nullable=False, default='default.jpg')
-
+    posts = db.relationship('Post', backref='group', lazy=True)
     
     def __repr__(self):
         return f"Group('{self.name}', Created by User ID: {self.admin_id})"
@@ -43,6 +43,7 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
     image = db.Column(db.String(20), nullable=False, default='default.jpg')
     
     def __repr__(self):
@@ -212,6 +213,26 @@ def create_group():
         db.session.commit()
         return redirect(url_for('groups'))
     return redirect(url_for('groups'))
+
+@app.route('/group/<int:group_id>')
+def group_page(group_id):
+    group = Group.query.get_or_404(group_id)
+    posts = Post.query.filter_by(group_id=group.id).order_by(Post.date_posted.desc()).all()
+    is_member = False
+    post_form = None
+    
+    if 'user_id' in session:
+        # Check if user is a member of the group
+        user = User.query.get(session['user_id'])
+        is_member = user is not None
+        if is_member:
+            post_form = PostForm()
+    
+    return render_template('group_page.html', 
+                         group=group, 
+                         posts=posts, 
+                         is_member=is_member, 
+                         post_form=post_form)
 
 UPLOAD_FOLDER = 'static/user_images'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}

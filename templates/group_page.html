@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% include 'header.html'%}
+{% include 'footer.html'%}
+{% block content %}
+<div class="container py-5">
+    <!-- Group Header -->
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <img src="/static/group_images/{{ group.image }}" 
+                 class="img-fluid rounded" 
+                 alt="{{ group.name }}"
+                 style="width: 100%; height: 300px; object-fit: cover;">
+        </div>
+        <div class="col-md-8">
+            <h1 class="mb-3">{{ group.name }}</h1>
+            <p class="lead mb-4">{{ group.description }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="text-muted mb-0">Created by: {{ group.admin.username }}</p>
+                    <p class="text-muted">Created on: {{ group.created_at.strftime('%Y-%m-%d') }}</p>
+                </div>
+                {% if session.get('user_id') %}
+                    {% if not is_member %}
+                    <form action="{{ url_for('join_group', group_id=group.id) }}" method="post">
+                        <button type="submit" class="btn btn-primary">Join Group</button>
+                    </form>
+                    {% else %}
+                    <button class="btn btn-secondary" disabled>Already a Member</button>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-primary">Login to Join</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Group Posts -->
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Group Posts</h2>
+            {% if session.get('user_id') and is_member %}
+            <div class="mb-4">
+                <form method="post" action="{{ url_for('create_group_post', group_id=group.id) }}" enctype="multipart/form-data">
+                    {{ post_form.csrf_token }}
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                {{ post_form.title.label(class="form-label") }}
+                                {{ post_form.title(class="form-control") }}
+                            </div>
+                            <div class="mb-3">
+                                {{ post_form.content.label(class="form-label") }}
+                                {{ post_form.content(class="form-control") }}
+                            </div>
+                            <div class="mb-3">
+                                {{ post_form.image.label(class="form-label") }}
+                                {{ post_form.image(class="form-control") }}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create Post</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+
+            {% for post in posts %}
+            <div class="card mb-4">
+                {% if post.image != 'default.jpg' %}
+                <img src="/static/post_images/{{ post.image }}" 
+                     class="card-img-top" 
+                     alt="Post image"
+                     style="height: 300px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Posted by {{ post.author.username }}</small>
+                        <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d %H:%M') }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

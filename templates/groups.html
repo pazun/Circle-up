@@ -23,7 +23,7 @@
                     <h5 class="card-title">{{ group.name }}</h5>
                     <p class="card-text">{{ group.description }}</p>
                     {% if session.get('user_id') %}
-                    <a href="#" class="btn btn-primary">Join Group</a>
+                    <a href="{{ url_for('group_page', group_id=group.id) }}" class="btn btn-primary">View Group</a>
                     {% else %}
                     <a href="{{ url_for('login') }}" class="btn btn-primary">Login to Join</a>
                     {% endif %}
