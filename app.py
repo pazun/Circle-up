@@ -211,13 +211,15 @@ class GroupForm(FlaskForm):
     ])
     description = TextAreaField('Description', validators=[DataRequired()])
     image = SelectField('Group Image', choices=[
-        ('board-games.jpg', 'Board Games'),
-        ('book.jpg', 'Books'),
-        ('brony.jpg', 'Brony'),
-        ('furry.jpg', 'Furry'),
-        ('music.jpg', 'Music'),
-        ('public_transport.jpg', 'Public Transport'),
-        ('video_games.jpg', 'Video Games')
+        ('1.jpg', 'Gardening 🌿'),
+        ('2.jpg', 'Dancing 💃'),
+        ('3.jpg', 'Photography 📷'),
+        ('4.jpg', 'Language Learning 🌍'),
+        ('5.jpg', 'Board Games 🎲'),
+        ('6.jpg', 'Cooking 🍳'),
+        ('7.jpg', 'Hiking & Nature 🥾'),
+        ('8.jpg', 'Programming 💻'),
+        ('9.jpg', 'Music 🎶')
     ])
     custom_image = FileField('Or Upload Custom Image', validators=[
         FileAllowed(['jpg', 'png', 'jpeg', 'gif'], 'Images only!')
