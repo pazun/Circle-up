@@ -2,7 +2,19 @@
 {% include 'header.html'%}
 {% block content %}
 <div class="container py-5">
-    <h2 class="text-center mb-5">Find Other Users</h2>
+    <h2 class="text-center mb-4">Find Other Users</h2>
+    
+    <!-- Search Form -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-6">
+            <form method="GET" action="{{ url_for('users') }}" class="d-flex">
+                <input type="text" name="search" class="form-control me-2" placeholder="Search by username" 
+                       value="{{ search_query if search_query else '' }}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for user in users %}
         {% if user.id != current_user.id %}
@@ -20,6 +32,12 @@
         {% endif %}
         {% endfor %}
     </div>
+
+    {% if users|length == 0 %}
+    <div class="text-center mt-4">
+        <p>No users found matching your search.</p>
+    </div>
+    {% endif %}
 </div>
 
 {% include 'footer.html'%}
