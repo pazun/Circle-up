@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+from blueprints.routes import routes
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
@@ -10,6 +11,7 @@ from datetime import datetime
 import os
 
 app = Flask(__name__)
+app.register_blueprint(routes)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SECRET_KEY'] = 'bekne'
 db = SQLAlchemy(app)
@@ -330,10 +332,6 @@ def leave_group(group_id):
         db.session.commit()
     
     return redirect(url_for('group_page', group_id=group_id))
-
-@app.route('/faq')
-def faq():
-    return render_template('faq.html')
 
 @app.route('/about')
 def about():

@@ -13,7 +13,7 @@
         <li><a href="{{ url_for('index') }}" class="nav-link px-2 {% if request.endpoint == "index" %} link-secondary {% endif %}">Home</a></li>
         <li><a href="{{ url_for('groups') }}" class="nav-link px-2{% if request.endpoint == "groups" %} link-secondary {% endif %}">Groups</a></li>
         <li><a href="{{ url_for('users') }}" class="nav-link px-2{% if request.endpoint == "users" %} link-secondary {% endif %}">Users</a></li>
-        <li><a href="{{ url_for('faq') }}" class="nav-link px-2{% if request.endpoint == "faq" %} link-secondary {% endif %}">FAQs</a></li>
+        <li><a href="{{ url_for('routes.faq') }}" class="nav-link px-2{% if request.endpoint == "routes.faq" %} link-secondary {% endif %}">FAQs</a></li>
         <li><a href="{{ url_for('about') }}" class="nav-link px-2{% if request.endpoint == "about" %} link-secondary {% endif %}">About</a></li>
       </ul>
 
