@@ -9,6 +9,15 @@ from wtforms.validators import DataRequired, Length, Email, ValidationError
 from datetime import datetime
 import os
 
+from transformers import pipeline
+
+sentiment_model = pipeline("sentiment-analysis")
+
+def analyze_sentiment(text):
+    result = sentiment_model(text[:512])[0]
+    return result["label"], float(result["score"])
+
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SECRET_KEY'] = 'bekne'
@@ -54,7 +63,8 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
     image = db.Column(db.String(20), nullable=False, default='default.jpg')
-    
+    sentimental = db.Column(db.String(100), default="neutral")
+
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
     
@@ -290,13 +300,16 @@ def create_group_post(group_id):
             file.save(os.path.join(app.config['UPLOAD_FOLDER_POSTS'], filename))
             image_file = filename
             
+        sentimental = analyze_sentiment(form.content.data)
+
         post = Post(
             title=form.title.data,
             content=form.content.data,
             date_posted=datetime.utcnow(),
             user_id=session['user_id'],
             group_id=group_id,
-            image=image_file
+            image=image_file,
+            sentimental = sentimental[0].lower() if sentimental else "neutral"
         )
         db.session.add(post)
         db.session.commit()
