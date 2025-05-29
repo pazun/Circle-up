@@ -185,9 +185,14 @@ def users():
     if 'user_id' not in session:
         return redirect(url_for('login'))
     
-    users = User.query.all()
+    search_query = request.args.get('search', '')
+    if search_query:
+        users = User.query.filter(User.username.ilike(f'%{search_query}%')).all()
+    else:
+        users = User.query.all()
+        
     current_user = User.query.get(session['user_id'])
-    return render_template('users.html', users=users, current_user=current_user)
+    return render_template('users.html', users=users, current_user=current_user, search_query=search_query)
 
 class GroupForm(FlaskForm):
     name = StringField('Group Name', validators=[
