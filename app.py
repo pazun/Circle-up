@@ -362,5 +362,39 @@ def user_page(user_id):
     profile_user = User.query.get_or_404(user_id)
     return render_template('userpage.html', profile_user=profile_user)
 
+@app.route('/group/<int:group_id>/delete', methods=['POST'])
+def delete_group(group_id):
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    group = Group.query.get_or_404(group_id)
+    if group.admin_id != session['user_id']:
+        flash('You do not have permission to delete this group.', 'error')
+        return redirect(url_for('group_page', group_id=group_id))
+    
+    # Delete all posts in the group
+    Post.query.filter_by(group_id=group_id).delete()
+    # Delete the group
+    db.session.delete(group)
+    db.session.commit()
+    flash('Group has been deleted successfully.', 'success')
+    return redirect(url_for('groups'))
+
+@app.route('/post/<int:post_id>/delete', methods=['POST'])
+def delete_post(post_id):
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    post = Post.query.get_or_404(post_id)
+    if post.user_id != session['user_id']:
+        flash('You do not have permission to delete this post.', 'error')
+        return redirect(url_for('group_page', group_id=post.group_id))
+    
+    group_id = post.group_id
+    db.session.delete(post)
+    db.session.commit()
+    flash('Post has been deleted successfully.', 'success')
+    return redirect(url_for('group_page', group_id=group_id))
+
 if __name__ == '__main__':
     app.run(port='5001')
